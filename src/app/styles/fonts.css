@@ -1,0 +1,39 @@
+/* DMSans-Bold */
+@font-face {
+  font-family: 'DMSans-Bold';
+  src: url('/fonts/DMSans-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+/* DMSans-Medium */
+@font-face {
+  font-family: 'DMSans-Medium';
+  src: url('/fonts/DMSans-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+/* DMSans-Regular */
+@font-face {
+  font-family: 'DMSans-Regular';
+  src: url('/fonts/DMSans-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Lora-Medium */
+@font-face {
+  font-family: 'Lora-Medium';
+  src: url('/fonts/Lora-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+/* Lora-SemiBold */
+@font-face {
+  font-family: 'Lora-SemiBold';
+  src: url('/fonts/Lora-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+}
