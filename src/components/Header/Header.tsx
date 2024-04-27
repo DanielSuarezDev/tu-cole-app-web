@@ -1,17 +1,18 @@
+/* eslint-disable @next/next/no-img-element */
 'use client';
 
 import React, { FC } from 'react';
 import { Dropdown } from 'flowbite-react';
 import { useRouter } from 'next/navigation';
 
-import { User } from '../../../assets/icons';
+import { User } from '../../assets/icons';
 import { Divider } from '../Divider/Divider';
-import { useAuth } from '../../../../../hooks/useAuth';
+import useAuth from '../../hooks/useAuth';
 import { Typography } from '../Typography/Typography';
-import { useScrollPosition } from '../../../../../hooks/useScrollPosition';
-import { showHelps } from '../../../../../commons/config';
-import LogoFullSvg from '../../../../../assets/icons/LogoFull';
-import { IStoreFront } from '../../../../../commons/types/storeFront';
+import { useScrollPosition } from '../../hooks/useScrollPosition';
+
+import LogoFullSvg from './images/Logo-Full.png';
+
 import Link from 'next/link';
 
 type ItemsMenu = {
@@ -76,7 +77,6 @@ interface Props {
   dataCode?: {
     role?: string;
     email?: string;
-    storeFront?: IStoreFront;
     environment?: string;
   };
   attributes?: { [key: string]: string | undefined };
@@ -87,35 +87,73 @@ export const Header: FC<Props> = ({
   subtitle,
   items,
   userMenu,
-  dataCode,
-  attributes,
 }) => {
   const { replace } = useRouter();
   const { logout } = useAuth();
   const menuInformation = items && processMainMenus(items);
   const scrollPosition = useScrollPosition();
 
+  const menuTeacher = [
+    {
+      menuName: 'Inicio',
+      subMenus: [
+        {
+          label: 'Dashboard',
+          url: '/dashboard',
+        },
+      ],
+    },
+    {
+      menuName: 'Cursos',
+      subMenus: [
+        {
+          label: 'Mis cursos',
+          url: '/courses',
+        },
+        {
+          label: 'Crear curso',
+          url: '/courses/create',
+        },
+      ],
+    },
+    {
+      menuName: 'Estudiantes',
+      subMenus: [
+        {
+          label: 'Mis estudiantes',
+          url: '/students',
+        },
+      ],
+    },
+    {
+      menuName: 'Calificaciones',
+      subMenus: [
+        {
+          label: 'Mis calificaciones',
+          url: '/grades',
+        },
+      ],
+    },
+    {
+      menuName: 'Configuración',
+      subMenus: [
+        {
+          label: 'Mi perfil',
+          url: '/profile',
+        },
+        {
+          label: 'Configuración',
+          url: '/settings',
+        },
+      ],
+    },
+  ];
+
   return (
     <div
       id="header-main-top"
-      className="bg-black h-28 w-full fixed top-0 z-10 "
+      className="bg-blue-800 h-28 w-full fixed top-0 z-10 "
     >
-      {showHelps && (
-        <code
-          onClick={() => {
-            alert(JSON.stringify(attributes, null, 2));
-          }}
-          className="text-white text-xs"
-        >
-          {JSON.stringify({
-            ...dataCode,
-            storeFront: {
-              name: dataCode?.storeFront?.name,
-              type: dataCode?.storeFront?.businessunit?.type,
-            },
-          })}
-        </code>
-      )}
       <header
         className={`bg-white text-black h-21 w-full p-6 border-b border-gray-200 rounded-t-3xl flex justify-between items-center ${additionalStyles(
           childCount,
@@ -124,7 +162,12 @@ export const Header: FC<Props> = ({
         }  `}
       >
         <div className="flex items-center gap-6 self-stretch h-auto">
-          <LogoFullSvg />
+          <img
+              //@ts-ignore
+              src="../images/Logo-Full.png"
+              alt="Paramount Logo"
+              className="object-contain w-32 h-10"
+            />
           <Divider orientation="vertical" />
           {subtitle && (
             <Typography type="l2" bold otherClasses="text-grey-500 !mb-0">
@@ -136,7 +179,7 @@ export const Header: FC<Props> = ({
           id="header-main"
           className="flex gap-14 items-center self-stretch h-auto"
         >
-          {menuInformation?.map((menu) => {
+          {menuTeacher?.map((menu) => {
             return menu?.subMenus?.length > 0 ? (
               <Dropdown
                 key={menu.menuName + 'dropdown'}
@@ -244,7 +287,7 @@ export const Header: FC<Props> = ({
               await logout();
               replace('/auth/login');
             }}
-            className="px-4 text-lecapitalize inline hover:!bg-grey-100 hover:!text-secondary pt-[18px] px-[24px] pb-[16px]"
+            className="text-lecapitalize inline hover:!bg-grey-100 hover:!text-secondary pt-[18px] px-[24px] pb-[16px]"
           >
             <Typography
               type="b3"
